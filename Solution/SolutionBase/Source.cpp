@@ -68,7 +68,7 @@ int solution(vector<int> &A)
         int maxElement = *std::max_element(A.begin(), A.end());
 
         std::sort(A.begin(), A.end()); // ASC(Order)
-        std::sort(A.begin(), A.end(), std::greater<int>()); // DRSC(Inorder)
+        std::sort(A.begin(), A.end(), std::greater<int>()); // DESC(Inorder)
     }
 
     // #include <numeric>
