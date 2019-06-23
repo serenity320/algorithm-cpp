@@ -36,6 +36,7 @@ int main()
 // Programming language : C++
 
 //#include <bits/stdc++.h>
+#include <cmath>
 #include <algorithm>
 #include <numeric>
 #include <string>
@@ -48,12 +49,15 @@ int solution(vector<int> &A)
 
     // #include <limits>
     // (#include <vector>)
-    int minInt32 = std::numeric_limits<int>::min();
-    int maxInt32 = std::numeric_limits<int>::max();
+    constexpr auto minInt32 = std::numeric_limits<int>::min();
+    constexpr auto maxInt32 = std::numeric_limits<int>::max();
 
-    int absNumber = std::abs(result);
-    double powNumber = std::pow(2, result);
-    double sqrtNumber = std::sqrt(result);
+    // #include <cmath>
+    {
+        int absNumber = std::abs(result);
+        double powNumber = std::pow(2, result);
+        double sqrtNumber = std::sqrt(result);
+    }
 
     // #include <algorithm>
     {
@@ -70,11 +74,10 @@ int solution(vector<int> &A)
     // #include <numeric>
     {
         int initSum = 0;
-        int sumElement = std::accumulate(A.begin(), A.end(), initSum);
+        int sum = std::accumulate(A.begin(), A.end(), initSum);
     }
 
     // #include <string>
-    // (#include <vector>)
     {
         string str = "ABCDEFG";
         string subStr = str.substr(2, 3); // "CDEFG"

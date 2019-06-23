@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cmath>
 #include <vector>
 
 using namespace std;
@@ -49,7 +50,7 @@ int main()
                 printf("%d ", element);
             }
 
-            printf("\n", i);
+            printf("\n");
         }
     }
 

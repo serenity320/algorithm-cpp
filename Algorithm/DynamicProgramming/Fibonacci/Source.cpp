@@ -5,12 +5,13 @@ using namespace std;
 
 uint64_t Fibonacci(int n);
 vector<uint64_t> FibonacciSequence(int n);
+vector<bool> IsFibonacci(uint64_t n); // Fibo(x) : 0 ~ n
 
 int main()
 {
-    int n = 0;
+    int n = 15;
 
-    printf("[피보나치]\n");
+    printf("[피보나치 수]\n");
     {
         uint64_t fibo = Fibonacci(n);
 
@@ -29,24 +30,36 @@ int main()
         }
     }
 
+    printf("\n");
+
+    printf("[피보나치 확인]\n");
+    {
+        uint64_t limit = 100;
+        int number = 55; // O
+
+        vector<bool> isFibo = IsFibonacci(limit);
+        char sign = isFibo[number] ? 'O' : 'X';
+
+        printf("%d is fibancci number : %c\n", number, sign);
+    }
+
     return 0;
 }
 
 uint64_t Fibonacci(int n)
 {
     uint64_t result = 0;
-
-    uint64_t a = 0; // F(0)
-    uint64_t b = 1; // F(1)
-    uint64_t c = 0;
-
+    
     if (n > 0)
     {
+        uint64_t a = 0; // F(0)
+        uint64_t b = 1; // F(1)
+
         for (int i = 2; i <= n; i++)
         {
-            c = a + b;
+            uint64_t c = a + b;
 
-            // next
+            // Next
             a = b;
             b = c;
         }
@@ -72,6 +85,38 @@ vector<uint64_t> FibonacciSequence(int n)
             result[i] = result[i - 1] + result[i - 2];
         }
     }
+
+    return result;
+}
+
+vector<bool> IsFibonacci(uint64_t n)
+{
+    // Fibo(x)가 0 ~ n까지인 Fibonacci
+    vector<bool> result(n + 1, false);
+
+    uint64_t a = 0; // F(0)
+    result[a] = true;
+
+    if (n > 0)
+    {
+        uint64_t b = 1; // F(1)
+        result[b] = true;
+
+        while (b < n)
+        {
+            uint64_t c = a + b;
+
+            if (c <= n)
+            {
+                result[c] = true;
+            }
+
+            // Next
+            a = b;
+            b = c;
+        }
+    }
+
 
     return result;
 }

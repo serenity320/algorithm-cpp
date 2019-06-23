@@ -16,8 +16,6 @@ int main()
         printf("data[%d] : %d\n", element, data[element]);
     }
 
-    printf("\n");
-
     return 0;
 }
 

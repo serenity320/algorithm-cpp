@@ -21,11 +21,11 @@ int main()
                 // abs()
                 // https://en.cppreference.com/w/cpp/numeric/math/abs
                 {
-                    int result = std::abs(-3);
-                    // result: 3
+                    int result1 = std::abs(-3);
+                    // result1: 3
 
-                    result = std::abs(-3.0);
-                    // result: 3.0
+                    double result2 = std::abs(-3.0);
+                    // result2: 3.0
                 }
 
                 // log()
@@ -103,8 +103,8 @@ int main()
                 // sum: 55
 
                 int initSum = 100;
-                int sum = std::accumulate(values.begin(), values.end(), initSum);
-                // sum: 155
+                int accumSum = std::accumulate(values.begin(), values.end(), initSum);
+                // accumSum: 155
 
                 int64_t initProduct = 1;
                 int64_t product = std::accumulate(values.begin(), values.end(), initProduct, multiplies<int64_t>());
