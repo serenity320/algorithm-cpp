@@ -1,30 +1,26 @@
 #include <cstdio>
-#include <cstdint>
+#include <vector>
 
-#define MAX 0x7FFFFFFF
-#define SIZE 1000
+#define LIMIT 1000000000
+
+using namespace std;
 
 int main()
-{
-    FILE* pFile;
-    int64_t input[SIZE] = { 0 };
-    int result = 0;
+{    int result = 0;
 
-    pFile = fopen("input.txt", "r");
+    vector<int64_t> data;
+    const int N = data.size();
 
     // Input
-    for (int i = 0; i < SIZE; i++)
-    {
-        fscanf(pFile, "%llu", &input[i]); // -30억 <= X <= 30억
-    }
+    //data.push_back(input);
 
     // Algorithm
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < N; i++)
     {
         int64_t mod = 0;
 
-        mod = input[i] % MAX; // input이 MAX보다 클 경우
-        mod = (result + mod) % MAX;
+        mod = data[i] % LIMIT; // input이 LIMIT보다 큰 경우
+        mod = (result + mod) % LIMIT;
         result = static_cast<int>(mod);
 
         // SUM = 73218445
@@ -33,8 +29,6 @@ int main()
 
     // Output
     printf("%d\n", result);
-
-    fclose(pFile);
 
     return 0;
 }

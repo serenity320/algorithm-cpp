@@ -74,7 +74,7 @@ int main()
 
                 if (numeric_limits<int>::max() > INFINITY)
                 {
-                    cout << numeric_limits<int>::max() << " < " << INFINITY << '\n';
+                    cout << std::numeric_limits<int>::max() << " < " << INFINITY << '\n';
                 }
                 // 2147483647 < inf
             }

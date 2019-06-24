@@ -3,69 +3,79 @@
 #include <vector>
 #include <queue>
 
-#define VERTEX_MAX 10
-
 using namespace std;
-
-struct Node
-{
-    int vertex;
-    Node* link;
-};
 
 struct Graph
 {
-    Node* adjList[VERTEX_MAX];
-    bool isVisited[VERTEX_MAX];
+    vector<vector<int>> AdjList;
+    vector<bool> IsVisited;
 
-    int size; // Vertex의 개수
+    size_t Size;
+
+    Graph(size_t size)
+    {
+        AdjList.assign(size, vector<int>());
+        IsVisited.assign(size, false);
+
+        Size = size;
+    }
+
+    void AddEdge(int u, int v)
+    {
+        // G(u, v)
+        AdjList[u].push_back(v);
+    }
+
+    void VisitVertex(int v)
+    {        
+        IsVisited[v] = true;
+        printf("%d ", v);
+    }
+
+    void ResetIsVisited()
+    {
+        std::fill(IsVisited.begin(), IsVisited.end(), false);
+    }
 };
 
-Graph* CreateGraph();
-void FreeGraph(Graph* graph);
-
-void InsertVertex(Graph* graph, int v);
-void InsertEdge(Graph* graph, int u, int v); // G(u, v)
-void ResetVisitedNode(Graph* graph);
-
-void DFS_Recursion(Graph* graph, int vertex); // Recursion
-void DFS_Stack(Graph* graph, int vertex); // Stack
-void BFS_Queue(Graph* graph, int vertex); // Queue
+void DFS_Recursion(Graph& graph, int source); // Recursion
+void DFS_Stack(Graph& graph, int source); // Stack
+void BFS_Queue(Graph& graph, int source); // Queue
 
 int main()
 {
-    Graph* graph = CreateGraph();
     int vertex = 8;
+    Graph graph(vertex);
 
-    for (int i = 0; i < vertex; i++)
-    {
-        InsertVertex(graph, i);
-    }
+    graph.AddEdge(0, 2);
+    graph.AddEdge(0, 1);
+    graph.AddEdge(1, 4);
+    graph.AddEdge(1, 3);
+    graph.AddEdge(1, 0);
+    graph.AddEdge(2, 6);
+    graph.AddEdge(2, 5);
+    graph.AddEdge(2, 0);
+    graph.AddEdge(3, 7);
+    graph.AddEdge(3, 1);
+    graph.AddEdge(4, 7);
+    graph.AddEdge(4, 1);
+    graph.AddEdge(5, 7);
+    graph.AddEdge(5, 2);
+    graph.AddEdge(6, 7);
+    graph.AddEdge(6, 2);
+    graph.AddEdge(7, 6);
+    graph.AddEdge(7, 5);
+    graph.AddEdge(7, 4);
+    graph.AddEdge(7, 3);
 
-    InsertEdge(graph, 0, 2);
-    InsertEdge(graph, 0, 1);
-    InsertEdge(graph, 1, 4);
-    InsertEdge(graph, 1, 3);
-    InsertEdge(graph, 1, 0);
-    InsertEdge(graph, 2, 6);
-    InsertEdge(graph, 2, 5);
-    InsertEdge(graph, 2, 0);
-    InsertEdge(graph, 3, 7);
-    InsertEdge(graph, 3, 1);
-    InsertEdge(graph, 4, 7);
-    InsertEdge(graph, 4, 1);
-    InsertEdge(graph, 5, 7);
-    InsertEdge(graph, 5, 2);
-    InsertEdge(graph, 6, 7);
-    InsertEdge(graph, 6, 2);
-    InsertEdge(graph, 7, 6);
-    InsertEdge(graph, 7, 5);
-    InsertEdge(graph, 7, 4);
-    InsertEdge(graph, 7, 3);
+    //for (int i = 0; i < graph.size; i++)
+    //{
+    //    std::reverse(graph.adjList[i].begin(), graph.adjList[i].end());
+    //}
 
     printf("[깊이 우선 탐색(DFS)] - Recursion\n");
     {
-        ResetVisitedNode(graph);
+        graph.ResetIsVisited();
         DFS_Recursion(graph, 0);
     }
 
@@ -73,7 +83,7 @@ int main()
 
     printf("[깊이 우선 탐색(DFS)] - Stack\n");
     {
-        ResetVisitedNode(graph);
+        graph.ResetIsVisited();
         DFS_Stack(graph, 0);
     }
 
@@ -81,121 +91,56 @@ int main()
 
     printf("[너비 우선 탐색(BFS)] - Queue\n");
     {
-        ResetVisitedNode(graph);
+        graph.ResetIsVisited();
         BFS_Queue(graph, 0);
     }
 
     printf("\n");
 
-    FreeGraph(graph);
-
     return 0;
 }
 
-Graph* CreateGraph()
+void DFS_Recursion(Graph& graph, int source)
 {
-    Graph* graph = (Graph*)malloc(sizeof(Graph));
+    graph.VisitVertex(source);
 
-    graph->size = 0;
-
-    for (int v = 0; v < VERTEX_MAX; v++)
+    for (auto w : graph.AdjList[source])
     {
-        graph->adjList[v] = nullptr;
-        graph->isVisited[v] = false;
-    }
-
-    return graph;
-}
-
-void FreeGraph(Graph* graph)
-{
-    for (int v = 0; v <  graph->size; v++)
-    {
-        free(graph->adjList[v]);
-    }
-
-    free(graph);
-
-    graph = nullptr;
-}
-
-void InsertVertex(Graph* graph, int v)
-{
-    if (graph->size + 1 < VERTEX_MAX)
-    {
-        graph->size++;
-    }
-    else
-    {
-        printf("그래프 점정의 개수 초과\n");
-    }
-}
-
-void InsertEdge(Graph* graph, int u, int v)
-{
-    Node* node = nullptr;
-
-    if (u < graph->size && v < graph->size)
-    {
-        node = (Node*)malloc(sizeof(Node));
-
-        node->vertex = v;
-        node->link = graph->adjList[u];
-        graph->adjList[u] = node;
-    }
-}
-
-void ResetVisitedNode(Graph* graph)
-{
-    for (int v = 0; v < graph->size; v++)
-    {
-        graph->isVisited[v] = false;
-    }
-}
-
-void DFS_Recursion(Graph* graph, int vertex)
-{
-    graph->isVisited[vertex] = true;
-    printf("%d ", vertex);
-
-    for (Node* w = graph->adjList[vertex]; w != nullptr; w = w->link)
-    {
-        if (!graph->isVisited[w->vertex])
+        if (!graph.IsVisited[w])
         {
-            DFS_Recursion(graph, w->vertex);
+            DFS_Recursion(graph, w);
         }
     }
 }
 
-void DFS_Stack(Graph* graph, int vertex)
+void DFS_Stack(Graph& graph, int source)
 {
     stack<int> stack;
-    int v = vertex;
+    int v = source;
 
     stack.push(v);
-    graph->isVisited[v] = true;
-
-    printf("%d ", v);
+    graph.VisitVertex(v);
 
     while (!stack.empty())
     {
-        Node* w = graph->adjList[v];
+        auto adjList = graph.AdjList[v].begin();
 
-        while (w != nullptr)
+        while (adjList != graph.AdjList[v].end())
         {
-            if (!graph->isVisited[w->vertex])
+            int w = *adjList;
+
+            if (!graph.IsVisited[w])
             {
-                stack.push(w->vertex);
-                graph->isVisited[w->vertex] = true;
+                stack.push(w);
+                graph.VisitVertex(w);
 
-                printf("%d ", w->vertex);
+                v = w;
 
-                v = w->vertex;
-                w = graph->adjList[v];
+                adjList = graph.AdjList[v].begin();
             }
             else
             {
-                w = w->link;
+                ++adjList; // next
             }
         }
 
@@ -204,29 +149,25 @@ void DFS_Stack(Graph* graph, int vertex)
     }
 }
 
-void BFS_Queue(Graph* graph, int vertex)
+void BFS_Queue(Graph& graph, int source)
 {
     queue<int> queue;
-    int v = vertex;
+    int v = source;
 
     queue.push(v);
-    graph->isVisited[v] = true;
-
-    printf("%d ", v);
+    graph.VisitVertex(v);
 
     while (!queue.empty())
     {
         v = queue.front();
         queue.pop();
 
-        for (Node* w = graph->adjList[v]; w != nullptr; w = w->link)
+        for (auto w : graph.AdjList[v])
         {
-            if (!graph->isVisited[w->vertex])
+            if (!graph.IsVisited[w])
             {
-                queue.push(w->vertex);
-                graph->isVisited[w->vertex] = true;
-
-                printf("%d ", w->vertex);
+                queue.push(w);
+                graph.VisitVertex(w);
             }
         }
     }

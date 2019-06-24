@@ -403,7 +403,7 @@ int main()
         // max()
         // https://en.cppreference.com/w/cpp/algorithm/max
         {
-            int result = numeric_limits<int>::min();
+            int result = std::numeric_limits<int>::min();
             int num = 3;
 
             result = std::max(result, num);
@@ -432,7 +432,7 @@ int main()
         // min()
         // https://en.cppreference.com/w/cpp/algorithm/min
         {
-            int result = numeric_limits<int>::max();
+            int result = std::numeric_limits<int>::max();
             int num = 3;
 
             result = std::min(result, num);

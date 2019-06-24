@@ -99,8 +99,8 @@ int MaximumSubarray3(vector<int>& data, int left, int right)
         // [Subarray의 size가 0이 될 수 있다면,]
         //int maxLeftCenter = 0;
         //int maxRightCenter = 0;
-        int maxLeftCenter = numeric_limits<int>::min();
-        int maxRightCenter = numeric_limits<int>::min();
+        int maxLeftCenter = std::numeric_limits<int>::min();
+        int maxRightCenter = std::numeric_limits<int>::min();
 
         int center = (left + right) / 2;
         int maxLeft = MaximumSubarray3(data, left, center);

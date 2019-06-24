@@ -78,7 +78,7 @@ int main()
 
     // 노드가 0번 부터 시작하는 경우 N + 1
     // 노드의 번호가 일정하지 않으면 std::map<>을 사용
-    tree.resize(size + 1, nullptr);
+    tree.assign(size + 1, nullptr);
 
     for (int i = 0; i < size; i++)
     {
@@ -145,7 +145,7 @@ int main()
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = (Node*)malloc(sizeof(Node));
+    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
     node->data = data;
 
@@ -171,7 +171,7 @@ NodeEx* CreateNodeEx(Node* node)
 
     if (node != nullptr)
     {
-        nodeEx = (NodeEx*)malloc(sizeof(NodeEx));
+        nodeEx = reinterpret_cast<NodeEx*>(malloc(sizeof(NodeEx)));
 
         nodeEx->data = node->data;
         nodeEx->depth = 0;

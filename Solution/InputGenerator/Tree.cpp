@@ -14,7 +14,7 @@ string ConvertTree(int nodeNum, int rootNum)
 
     scanf("%d", &size);
 
-    tree.resize(nodeNum + 1, nullptr);
+    tree.assign(nodeNum + 1, nullptr);
 
     for (int i = 0; i < size; i++)
     {
@@ -54,7 +54,7 @@ string ConvertTree(int nodeNum, int rootNum)
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = (Node*)malloc(sizeof(Node));
+    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
     node->data = data;
     node->left = left;

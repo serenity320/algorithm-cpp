@@ -56,7 +56,7 @@ int main()
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = (Node*)malloc(sizeof(Node));
+    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
     node->data = data;
     node->left = left;
