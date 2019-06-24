@@ -14,7 +14,7 @@ int main()
     {
         // [Numeric limits]
         {
-            // std::numeric_limits<T>
+            // numeric_limits<T>
             // https://en.cppreference.com/w/cpp/types/numeric_limits
             {
                 auto int32_min = std::numeric_limits<int>::min(); // 0x80000000
