@@ -111,19 +111,19 @@ int MaximumSubarray3(vector<int>& data, int left, int right)
         for (int i = center; i >= left; i--)
         {
             sum = sum + data[i];
-            maxLeftCenter = max(maxLeftCenter, sum);
+            maxLeftCenter = std::max(maxLeftCenter, sum);
         }
 
         sum = 0;
         for (int i = center + 1; i <= right; i++)
         {
             sum = sum + data[i];
-            maxRightCenter = max(maxRightCenter, sum);
+            maxRightCenter = std::max(maxRightCenter, sum);
         }
 
         int maxCenter = maxLeftCenter + maxRightCenter;
 
-        result = max(max(maxLeft, maxRight), maxCenter);
+        result = std::max(std::max(maxLeft, maxRight), maxCenter);
     }
 
     return result;

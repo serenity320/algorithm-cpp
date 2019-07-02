@@ -57,16 +57,17 @@ int main()
     return 0;
 }
 
+// Time Complexity : O(sqrt(N))
+// Space Complexity : O(N)
 vector<int> Divisors(int n)
 {
     vector<int> result; // Inorderd
     //set<int> result; // Order
 
-    int i = 0;
+    int i = 1;
 
-    // Time Complexity : O(sqrt(N))
-    // Space Complexity : O(1)
-    for (i = 1; i < std::sqrt(n); i++)
+    // for (i = 1; i < std::sqrt(n); i++)
+    while (i * i < n)
     {
         if (n % i == 0)
         {
@@ -79,6 +80,8 @@ vector<int> Divisors(int n)
             result.push_back(a);
             result.push_back(b);
         }
+
+        i++;
     }
 
     if (i * i == n)
@@ -92,15 +95,16 @@ vector<int> Divisors(int n)
     return result;
 }
 
+// Time Complexity : O(sqrt(N))
+// Space Complexity : O(1)
 int CountingDivisors(int n)
 {
     int result = 0;
 
-    int i = 0;
+    int i = 1;
 
-    // Time Complexity : O(sqrt(N))
-    // Space Complexity : O(1)
-    for (i = 1; i < std::sqrt(n); i++)
+    // for (i = 1; i < std::sqrt(n); i++)
+    while (i * i < n)
     {
         if (n % i == 0)
         {
@@ -112,6 +116,8 @@ int CountingDivisors(int n)
 
             result += 2; // A, B -> 2°³
         }
+
+        i++;
     }
 
     if (i * i == n)
@@ -125,12 +131,17 @@ int CountingDivisors(int n)
     return result;
 }
 
+// Time Complexity : O(sqrt(N))
+// Space Complexity : O(N)
 vector<vector<int>> DivisorsList(int n)
 {
     vector<vector<int>> result(n + 1); // Inorderd
     //vector<set<int>> result(n + 1); // Orderd
 
-    for (int i = 1; i < std::sqrt(n); i++)
+    int i = 1;
+
+    // for (i = 1; i <= std::sqrt(n); i++)
+    while (i * i <= n)
     {
         int j = i * i;
 
@@ -145,6 +156,8 @@ vector<vector<int>> DivisorsList(int n)
 
             j += i;
         }
+
+        i++;
     }
 
     return result;

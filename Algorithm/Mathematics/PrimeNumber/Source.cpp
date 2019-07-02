@@ -44,6 +44,8 @@ int main()
     return 0;
 }
 
+// Time Complexity : O(sqrt(N))
+// Space Complexity : O(N)
 vector<int> PrimeNumber_SieveOfEratosthenes(int n)
 {
     vector<int> result;
@@ -53,7 +55,10 @@ vector<int> PrimeNumber_SieveOfEratosthenes(int n)
     isPrime[0] = false;
     isPrime[1] = false;
 
-    for (int i = 2;  i< std::sqrt(n); i++)
+    int i = 2;
+
+    // for (i = 2; i <= std::sqrt(n); i++)
+    while (i * i <= n)
     {
         if (isPrime[i])
         {
@@ -66,6 +71,8 @@ vector<int> PrimeNumber_SieveOfEratosthenes(int n)
                 j += i;
             }
         }
+
+        i++;
     }
 
     for (size_t i = 0; i < isPrime.size(); i++)
@@ -79,18 +86,26 @@ vector<int> PrimeNumber_SieveOfEratosthenes(int n)
     return result;
 }
 
+// Time Complexity : O(sqrt(N))
+// Space Complexity : O(1)
 bool IsPrimeNumber(int n)
 {
     bool result = true;
 
-    // Time Complexity : O(sqrt(N))
-    // Space Complexity : O(1)
-    for (int i = 2; i < std::sqrt(n); i++)
+    if (n >= 2)
     {
-        if (n % i == 0)
+        int i = 2;
+
+        // for (i = 2; i <= std::sqrt(n); i++)
+        while (i * i <= n)
         {
-            result = false;
-            break;
+            if (n % i == 0)
+            {
+                result = false;
+                break;
+            }
+
+            i++;
         }
     }
 

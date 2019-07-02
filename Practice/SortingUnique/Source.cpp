@@ -25,7 +25,7 @@ int main()
 set<int> SortingUnique(vector<int>& data)
 {
     set<int> result;
- 
+
     // Time Complexity : O(NlogN)
     // Space Complexity : O(N)
     for (int element : data)
@@ -38,6 +38,6 @@ set<int> SortingUnique(vector<int>& data)
             // Element already exists.
         }
     }
-    
+
     return result;
 }

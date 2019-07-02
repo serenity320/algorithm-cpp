@@ -1,21 +1,22 @@
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-struct AdjMaxtrixGraph
+struct AdjMatrixGraph
 {
     int Infinity = std::numeric_limits<int>::max();
 
-    vector<vector<int>> AdjMaxtrix;
+    vector<vector<int>> AdjMatrix;
     vector<bool> IsVisited;
 
-    size_t Size;
+    size_t Size; // Vertex 개수
     bool IsDirected; // 방향 그래프 여부
 
-    AdjMaxtrixGraph(size_t size, bool isDirected)
+    AdjMatrixGraph(size_t size, bool isDirected)
     {
-        AdjMaxtrix.assign(size, vector<int>(size, Infinity));
+        AdjMatrix.assign(size, vector<int>(size, Infinity));
         IsVisited.assign(size, false);
 
         Size = size;
@@ -29,7 +30,7 @@ struct AdjMaxtrixGraph
                 if (i == j)
                 {
                     // 같은 정점은 Weight가 0
-                    AdjMaxtrix[i][j] = 0;
+                    AdjMatrix[i][j] = 0;
                 }
             }
         }
@@ -40,32 +41,32 @@ struct AdjMaxtrixGraph
         if (IsDirected)
         {
             // 방향 그래프
-            // (u, v) = w
-            AdjMaxtrix[u][v] = w;
+            // (u, v) w
+            AdjMatrix[u][v] = w;
         }
         else
         {
             // 무방향 그래프
-            // <u, v>, <v, u> = w
-            AdjMaxtrix[u][v] = w;
-            AdjMaxtrix[v][u] = w;
+            // <u, v>, <v, u> w
+            AdjMatrix[u][v] = w;
+            AdjMatrix[v][u] = w;
         }
     }
 };
 
 // [Floyd-Warshall 알고리즘]
-// - 음수 사이클 없다고 가정
-vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMaxtrixGraph& graph, int source); // O(N^3)
+// 음수 사이클 없다고 가정
+vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMatrixGraph& graph, int source); // O(N^3)
 
 int main()
 {
     int V = 0; // Vertex 개수
     int E = 0; // Edge 개수
-    int S = 0; // 시작 Vertex 번호
+    int source = 0; // 시작 Vertex 번호
 
     // [input.txt]
     scanf("%d %d", &V, &E);
-    scanf("%d", &S);
+    scanf("%d", &source);
 
     vector<vector<int>> input(E, vector<int>(3, 0));
 
@@ -76,33 +77,29 @@ int main()
 
     printf("[Floyd-Warshall] - Greedy Algorithm\n");
     {
-        AdjMaxtrixGraph graph(V, true);
+        AdjMatrixGraph graph(V, true);
 
         // Graph 정점 연결
         for (int i = 0; i < E; i++)
         {
-            int u = input[i][0] - 1;
-            int v = input[i][1] - 1;
+            int u = input[i][0];
+            int v = input[i][1];
             int w = input[i][2];
 
             graph.AddEdge(u, v, w);
         }
 
-        // 0이 아닌 1번 정점부터 시작할 경우 -1을 더함
-        int source = S - 1;
-
-        // Dijkstra Algorithm
+        // Floyd-Warshall Algorithm
         auto distance = FloydWarshall_GreedyAlgorithm(graph, source);
 
         // Shortest Path 출력
         for (int i = 0; i < V; i++)
         {
-            // 0이 아닌 1번 정점부터 시작할 경우 1을 더함
-            int destination = i + 1;
+            int destination = i;
 
-            printf("%d -> %d : ", S, destination);
+            printf("%d -> %d : ", source, destination);
 
-            if (distance[source][i] != graph.Infinity)
+            if (distance[source][i] < graph.Infinity)
             {
                 printf("%lld\n", distance[source][i]);
             }
@@ -123,20 +120,22 @@ int main()
             {
                 if (distance[i][j] == graph.Infinity)
                 {
-                    printf("%3s\n", "∞");
+                    printf("%3s", "∞");
                 }
                 else
                 {
-                    printf("%3lld\n", distance[i][j]);
+                    printf("%3lld", distance[i][j]);
                 }
             }
+
+            printf("\n");
         }
     }
 
     return 0;
 }
 
-vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMaxtrixGraph& graph, int source)
+vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMatrixGraph& graph, int source)
 {
     vector<vector<int64_t>> distance(graph.Size, vector<int64_t>(graph.Size, graph.Infinity));
 
@@ -145,7 +144,7 @@ vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMaxtrixGraph& graph, in
     {
         for (int j = 0; j < graph.Size; j++)
         {
-            distance[i][j] = graph.AdjMaxtrix[i][j];
+            distance[i][j] = graph.AdjMatrix[i][j];
         }
     }
 
@@ -158,11 +157,7 @@ vector<vector<int64_t>> FloydWarshall_GreedyAlgorithm(AdjMaxtrixGraph& graph, in
             {
                 int64_t sum = distance[i][k] + distance[k][j];
 
-                // Minumum Distance
-                if (distance[i][j] > sum)
-                {
-                    distance[i][j] = sum;
-                }
+                distance[i][j] = std::min(distance[i][j], sum);
             }
         }
     }

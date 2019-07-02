@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-int Compare(const void *args1, const void *args2);
+int Compare(const void* args1, const void* args2);
 
 int main()
 {
@@ -11,7 +11,7 @@ int main()
     int key = 30;
 
     qsort(data, length, sizeof(int), Compare); // O(NlogN)
-    int *element = (int*)bsearch(&key, data, length, sizeof(int), Compare); // O(logN)   
+    int* element = (int*)bsearch(&key, data, length, sizeof(int), Compare); // O(logN)   
 
     if (element != nullptr)
     {
@@ -27,10 +27,10 @@ int main()
     return 0;
 }
 
-int Compare(const void *args1, const void *args2)
+int Compare(const void* args1, const void* args2)
 {
-    int a = *(int*)args1;
-    int b = *(int*)args2;
+    int a = *((int*)args1);
+    int b = *((int*)args2);
 
     return a - b; // ASC
 }

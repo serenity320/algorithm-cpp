@@ -37,7 +37,7 @@ bool Leader(vector<int>& data, int& leader)
         if (size == 0)
         {
             candidate = element;
-            size++;            
+            size++;
         }
         else
         {

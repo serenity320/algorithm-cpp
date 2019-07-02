@@ -10,7 +10,7 @@ struct Graph
     vector<vector<int>> AdjList;
     vector<bool> IsVisited;
 
-    size_t Size;
+    size_t Size; // Vertex °³¼ö
 
     Graph(size_t size)
     {
@@ -24,12 +24,6 @@ struct Graph
     {
         // G(u, v)
         AdjList[u].push_back(v);
-    }
-
-    void VisitVertex(int v)
-    {        
-        IsVisited[v] = true;
-        printf("%d ", v);
     }
 
     void ResetIsVisited()
@@ -102,7 +96,12 @@ int main()
 
 void DFS_Recursion(Graph& graph, int source)
 {
-    graph.VisitVertex(source);
+    // [Source Vetex]
+    {
+        graph.IsVisited[source] = true;
+
+        printf("%d ", source);
+    }
 
     for (auto w : graph.AdjList[source])
     {
@@ -116,27 +115,34 @@ void DFS_Recursion(Graph& graph, int source)
 void DFS_Stack(Graph& graph, int source)
 {
     stack<int> stack;
-    int v = source;
+    int u = source;
 
-    stack.push(v);
-    graph.VisitVertex(v);
+    // [Source Vetex]
+    {
+        graph.IsVisited[u] = true;
+        stack.push(u);
+
+        printf("%d ", u);
+    }
 
     while (!stack.empty())
     {
-        auto adjList = graph.AdjList[v].begin();
+        auto adjList = graph.AdjList[u].begin();
 
-        while (adjList != graph.AdjList[v].end())
+        while (adjList != graph.AdjList[u].end())
         {
-            int w = *adjList;
+            // <u, v>
+            int v = *adjList;
 
-            if (!graph.IsVisited[w])
+            if (!graph.IsVisited[v])
             {
-                stack.push(w);
-                graph.VisitVertex(w);
+                graph.IsVisited[v] = true;
+                stack.push(v);
 
-                v = w;
+                printf("%d ", v);
 
-                adjList = graph.AdjList[v].begin();
+                u = v;
+                adjList = graph.AdjList[u].begin();
             }
             else
             {
@@ -144,7 +150,7 @@ void DFS_Stack(Graph& graph, int source)
             }
         }
 
-        v = stack.top();
+        u = stack.top();
         stack.pop();
     }
 }
@@ -152,22 +158,30 @@ void DFS_Stack(Graph& graph, int source)
 void BFS_Queue(Graph& graph, int source)
 {
     queue<int> queue;
-    int v = source;
+    int u = source;
 
-    queue.push(v);
-    graph.VisitVertex(v);
+    // [Source Vetex]
+    {
+        printf("%d ", u);
+
+        graph.IsVisited[u] = true;
+        queue.push(u);
+    }
 
     while (!queue.empty())
     {
-        v = queue.front();
+        u = queue.front();
         queue.pop();
 
-        for (auto w : graph.AdjList[v])
+        for (auto v : graph.AdjList[u])
         {
-            if (!graph.IsVisited[w])
+            // <u, v>
+            if (!graph.IsVisited[v])
             {
-                queue.push(w);
-                graph.VisitVertex(w);
+                printf("%d ", v);
+
+                graph.IsVisited[v] = true;
+                queue.push(v);
             }
         }
     }

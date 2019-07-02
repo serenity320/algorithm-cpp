@@ -7,7 +7,7 @@ struct Position
     int y;
 };
 
-int Compare(const void *args1, const void *args2);
+int Compare(const void* args1, const void* args2);
 
 int main()
 {
@@ -31,7 +31,7 @@ int main()
     return 0;
 }
 
-int Compare(const void *args1, const void *args2)
+int Compare(const void* args1, const void* args2)
 {
     int a = ((Position*)args1)->x;
     int b = ((Position*)args2)->x;

@@ -11,7 +11,7 @@ struct Item
     int C;
     int D;
 
-    bool const operator<(const Item &item) const
+    bool const operator<(const Item& item) const
     {
         return (A < item.A ||
             (A == item.A && B < item.B) ||
@@ -80,7 +80,7 @@ int main()
         auto element = data.find("ABC");
         if (element != data.end())
         {
-            cout << "key : " << element->first << ", value : " << element->second << '\n';            
+            cout << "key : " << element->first << ", value : " << element->second << '\n';
         }
 
         // count(key)

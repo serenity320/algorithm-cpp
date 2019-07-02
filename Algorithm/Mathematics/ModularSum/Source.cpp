@@ -6,7 +6,8 @@
 using namespace std;
 
 int main()
-{    int result = 0;
+{
+    int result = 0;
 
     vector<int64_t> data;
     const int N = data.size();

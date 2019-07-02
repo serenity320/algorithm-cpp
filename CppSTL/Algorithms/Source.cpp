@@ -56,7 +56,7 @@ int main()
             // Lambda
             {
                 vector<int> values{ 1, 2, 3, 4, 5 };
-                auto pred = [](int &num) { num++; };
+                auto pred = [](int& num) { num++; };
 
                 std::for_each(values.begin(), values.end(), pred);
                 // values: 2 3 4 5 6

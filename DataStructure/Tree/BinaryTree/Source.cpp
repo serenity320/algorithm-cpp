@@ -17,20 +17,20 @@ struct NodeEx
 {
     int data;
 
-    int depth;      // 노드의 높이(부모 노드의 수) [Root: 0]
-    int level;      // 노드의 레벨(Depth + 1) [Root: 1]
+    int depth;          // 노드의 높이(부모 노드의 수) [Root: 0]
+    int level;          // 노드의 레벨(Depth + 1) [Root: 1]
 
-    int size;       // 노드의 크기((leftSize + rightSize) + 1)
-    int leftSize;   // 왼쪽 자식 노드의 크기(개수)
-    int rightSize;  // 오른쪽 자식 노드의 크기(개수)
+    int size;           // 노드의 크기((leftSize + rightSize) + 1)
+    int leftSize;       // 왼쪽 자식 노드의 크기(개수)
+    int rightSize;      // 오른쪽 자식 노드의 크기(개수)
 
     int column;         // 노드의 열 번호 (Inorder Traversal)
     int perfectHeight;  // 포화(Perfect) 이진 트리를 만들 수 있는 최대 높이
 
     NodeEx* parent;     // 부모 노드(nullptr: Root Node)
 
-    NodeEx* left;     // 왼쪽 자식 노드
-    NodeEx* right;    // 오른쪽 자식 노드
+    NodeEx* left;       // 왼쪽 자식 노드
+    NodeEx* right;      // 오른쪽 자식 노드
 
     // 노드 N의 부모 노드 : N / 2
     // 노드 N의 왼쪽 자식 노드 : 2 * N

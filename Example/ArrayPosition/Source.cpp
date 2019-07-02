@@ -50,6 +50,7 @@ int main()
         {
             printf("%3d ", result[i][j]);
         }
+
         printf("\n");
     }
 

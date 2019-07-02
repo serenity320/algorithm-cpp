@@ -89,7 +89,7 @@ int main()
     {
         cout << "value : " << element << "\n";
     }
-    
+
     // [Loop]
     for (size_t i = 0; i < values.size(); i++)
     {

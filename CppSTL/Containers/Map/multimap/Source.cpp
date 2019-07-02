@@ -10,7 +10,7 @@ int main()
     // http://www.cplusplus.com/reference/map/multimap/
 
     multimap<string, int> values; // Multiple-key map
-    
+
     // [Modifiers]
     {
         // clear()

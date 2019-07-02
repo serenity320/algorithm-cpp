@@ -36,7 +36,7 @@ int main()
             printf("[%d] %d\n", element.first, element.second);
         }
     }
-        
+
     return 0;
 }
 

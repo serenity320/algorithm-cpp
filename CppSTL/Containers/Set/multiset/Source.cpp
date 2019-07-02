@@ -9,7 +9,7 @@ int main()
     // http://www.cplusplus.com/reference/set/multiset/
 
     multiset<int> values; // Multiple-key set
-    
+
     // [Modifiers]
     {
         // clear()
@@ -44,7 +44,7 @@ int main()
         auto iterator = values.find(1);
         if (iterator != values.end())
         {
-            cout << "element : " << *iterator << '\n';            
+            cout << "element : " << *iterator << '\n';
         }
 
         // count(key)

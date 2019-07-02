@@ -9,7 +9,7 @@ struct Item
     int x;
     int y;
     int value;
-    
+
     Item(int value) :
         x(0), y(0), value(value)
     {

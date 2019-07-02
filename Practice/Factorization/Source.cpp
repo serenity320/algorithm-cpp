@@ -41,13 +41,16 @@ int main()
     return 0;
 }
 
+// Time Complexity : O(Nlog(log(N)))
+// Space Complexity : O(N)
 vector<int> SmallestFactors(int n)
 {
     vector<int> result(n + 1, 0);
 
-    // Time Complexity : O(Nlog(log(N)))
-    // Space Complexity : O(N)
-    for (int i = 2; i < std::sqrt(n); i++)
+    int i = 2;
+
+    // for (i = 2; i <= std::sqrt(n); i++)
+    while (i * i <= n)
     {
         if (result[i] == 0)
         {
@@ -60,10 +63,12 @@ vector<int> SmallestFactors(int n)
                     // i : Smallest Prime Number
                     result[j] = i;
                 }
-                
+
                 j += i;
             }
         }
+
+        i++;
     }
 
     // result(index >= 2)의 원소가 0이면 소수(Prime Number)
@@ -71,6 +76,8 @@ vector<int> SmallestFactors(int n)
     return result;
 }
 
+// Time Complexity : O(logN)
+// Space Complexity : O(N)
 multiset<int> Factorization(vector<int>& factors, int n)
 {
     // Order : multiset<int>
@@ -79,8 +86,6 @@ multiset<int> Factorization(vector<int>& factors, int n)
 
     int number = n;
 
-    // Time Complexity : O(logN)
-    // Space Complexity : O(N)
     while (factors[number] > 0)
     {
         result.insert(factors[number]);

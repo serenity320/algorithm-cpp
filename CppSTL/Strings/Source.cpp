@@ -3,7 +3,7 @@
 
 #include <string>
 
-using namespace std; 
+using namespace std;
 
 int main()
 {
@@ -33,7 +33,7 @@ int main()
             // https://en.cppreference.com/w/cpp/string/basic_string/at
             {
                 string str = "ABCDEFG";
-                
+
                 char ch = str.at(3);
                 // ch: 'D'
             }

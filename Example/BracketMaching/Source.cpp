@@ -1,15 +1,15 @@
-#include <stack>
 #include <string>
+#include <stack>
 
 using namespace std;
 
 int main()
 {
-    stack<char> stack;
     string brackets = "({[]})"; // YES
     //string brackets = "({[)}]"; // NO
     //string brackets = "({[)}"; // NO
 
+    stack<char> stack;
     bool isValidation = true;
 
     for (size_t i = 0; i < brackets.length(); ++i)
@@ -53,11 +53,10 @@ int main()
     {
         printf("NO");
     }
-    else if (stack.empty())
+    else
     {
         printf("YES");
     }
-
 
     return 0;
 }
