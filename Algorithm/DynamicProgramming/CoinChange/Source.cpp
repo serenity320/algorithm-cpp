@@ -218,7 +218,7 @@ int FiniteCoin_NumberOfCoins(vector<pair<int, int>>& coins, int k)
         int coin = element.first;
         int count = element.second;
 
-        // 지폐의 금액이 j인 경우 (coins[i] ~ k)
+        // 지폐의 금액이 j인 경우 (coins[i] ~ 1)
         for (int j = k; j >= 1; j--)
         {
             // 동전의 개수가 n개인 경우 (1 ~ number)

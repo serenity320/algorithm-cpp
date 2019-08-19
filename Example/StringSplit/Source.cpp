@@ -1,20 +1,20 @@
 #include <cstdio>
-#include <string>
 #include <sstream>
+#include <string>
 #include <vector>
 
 using namespace std;
 
 // 공백을 포함하여 한 글자(char)인 경우에 문자열을 구분자로 분리
 void SplitStringByDelim(
-    string str,
+    const string& data,
     char delim,
     vector<string>& tokens);
 
 // 공백을 여부를 결정하여 여러 글자(string)인 문자열을 구분자로 분리
 void SplitStringByDelims(
-    string str,
-    string delim,
+    const string& data,
+    string& delim,
     vector<string>& tokens,
     vector<char>& delims,
     bool isWhitespace = false);
@@ -23,12 +23,12 @@ int main()
 {
     // [Split String 1]
     {
-        string str1 = "A B,C D";
+        string data = "A B,C D";
 
         vector<string> tokens1;
-        SplitStringByDelim(str1, ',', tokens1);
+        SplitStringByDelim(data, ',', tokens1);
 
-        printf("=> %s\n", str1.c_str());
+        printf("=> %s\n", data.c_str());
 
         for (string element1 : tokens1)
         {
@@ -46,14 +46,15 @@ int main()
 
     // [Split String 2]
     {
-        string str2 = "AB,CD;E.FG.";
+        string data = "AB,CD;E.FG.";
+        string delim = ".,;";
 
         vector<string> tokens;
         vector<char> delims;
 
-        SplitStringByDelims(str2, ".,;", tokens, delims, false);
+        SplitStringByDelims(data, delim, tokens, delims, false);
 
-        printf("=> %s, (size = %d)\n", str2.c_str(), tokens.size());
+        printf("=> %s, (size = %d)\n", data.c_str(), tokens.size());
 
         for (string element : tokens)
         {
@@ -65,14 +66,15 @@ int main()
 
     // [Split String 3]
     {
-        string str3 = ";.;.;";
+        string data = ";.;.;";
+        string delim = ".,;";
 
         vector<string> tokens;
         vector<char> delims;
 
-        SplitStringByDelims(str3, ".,;", tokens, delims, true);
+        SplitStringByDelims(data, delim, tokens, delims, true);
 
-        printf("=> %s, (size = %d)\n", str3.c_str(), tokens.size());
+        printf("=> %s, (size = %d)\n", data.c_str(), tokens.size());
 
         for (string element : tokens)
         {
@@ -84,13 +86,13 @@ int main()
 }
 
 void SplitStringByDelim(
-    string str,
+    const string& data,
     char delim,
     vector<string>& tokens)
 {
     string temp = "";
 
-    stringstream stream(str);
+    stringstream stream(data);
     string element;
 
     tokens.clear();
@@ -102,8 +104,8 @@ void SplitStringByDelim(
 }
 
 void SplitStringByDelims(
-    string str,
-    string delim,
+    const string& data,
+    string& delim,
     vector<string>& tokens,
     vector<char>& delims,
     bool isWhitespace)
@@ -113,13 +115,13 @@ void SplitStringByDelims(
     tokens.clear();
     delims.clear();
 
-    for (size_t i = 0; i < str.length(); i++)
+    for (size_t i = 0; i < data.length(); i++)
     {
         bool isSeparated = false;
 
         for (int j = 0; j < delim.length(); j++)
         {
-            if (str[i] == delim[j])
+            if (data[i] == delim[j])
             {
                 delims.push_back(delim[j]);
                 isSeparated = true;
@@ -137,7 +139,7 @@ void SplitStringByDelims(
         }
         else
         {
-            text += str[i];
+            text += data[i];
         }
     }
 

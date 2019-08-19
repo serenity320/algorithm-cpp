@@ -80,16 +80,16 @@ int SliceSum(vector<int>& data, int p, int q)
     int result = 0;
 
     vector<int> sums = PrefixSums(data);
-    int sump = 0;
+    int sumsP = 0;
 
     if (p - 1 >= 0)
     {
-        sump = sums[p - 1];
+        sumsP = sums[p - 1];
     }
 
     // Time Complexity : O(1)
     // Space Complexity : O(1)
-    result = sums[q] - sump;
+    result = sums[q] - sumsP;
 
     return result;
 }

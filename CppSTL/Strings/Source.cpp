@@ -45,7 +45,7 @@ int main()
                 string subStr = str.substr(2, 5); // Count
                 // sub: "CDEFG"
 
-                auto substring = [](string str, int start, int end)
+                auto subString = [](string str, int start, int end)
                 {
                     int index = (end - start) + 1;
                     string result = str.substr(start, index);
@@ -53,7 +53,7 @@ int main()
                     return result;
                 };
 
-                string subStr2 = substring(str, 2, 5); // Count
+                string subStr2 = subString(str, 2, 5); // Count
                 // subStr2: "CDEF"
             }
         }
@@ -68,7 +68,7 @@ int main()
 
                 auto result = str.find(findStr);
 
-                if (result != std::string::npos)
+                if (result != string::npos)
                 {
                     string subStr = str.substr(result);
 
@@ -85,7 +85,7 @@ int main()
 
                 auto result = str.rfind(findStr);
 
-                if (result != std::string::npos)
+                if (result != string::npos)
                 {
                     string subStr = str.substr(result);
 

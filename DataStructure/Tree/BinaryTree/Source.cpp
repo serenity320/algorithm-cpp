@@ -46,9 +46,9 @@ NodeEx* CreateNodeEx(Node* node);
 void FreeNodeEx(NodeEx* root);
 
 NodeEx* InitializeTree_Recursion(Node* root, int depth, int& column);
-NodeEx* InitializeTreeEx_Iteration(Node* root);
-
 int UpdateTree_Recursion(NodeEx* root, NodeEx* parent, int depth, int& column);
+
+NodeEx* InitializeTreeEx_Iteration(Node* root);
 void UpdateTree_Iteration(NodeEx* root);
 
 Node* FindRootNode(vector<Node*>& raw); // 루트 노드 찾기
@@ -112,9 +112,9 @@ int main()
     //int column2 = 0;
 
     //NodeEx* rootEx = InitializeTree_Recursion(root, 0, column1);
-    NodeEx* rootEx = InitializeTreeEx_Iteration(root);
-
     //UpdateTree_Recursion(rootEx, nullptr, 0, column2);
+
+    NodeEx* rootEx = InitializeTreeEx_Iteration(root);
     //UpdateTree_Iteration(rootEx);
 
     //int heightOfNode = GetHeightOfNode_Recursion(rootEx);
@@ -145,12 +145,15 @@ int main()
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
+    auto node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
-    node->data = data;
+    if (node != nullptr)
+    {
+        node->data = data;
 
-    node->left = left;
-    node->right = right;
+        node->left = left;
+        node->right = right;
+    }
 
     return node;
 }
@@ -218,6 +221,7 @@ void FreeNodeEx(NodeEx* root)
     }
 }
 
+// Initialize & Update
 NodeEx* InitializeTree_Recursion(Node* root, int depth, int& column)
 {
     NodeEx* rootEx = nullptr;
@@ -270,7 +274,7 @@ NodeEx* InitializeTree_Recursion(Node* root, int depth, int& column)
     return rootEx; // Root Node
 }
 
-// InitializeTree_Recursion()으로 대체할 수 있음
+// Only Update
 int UpdateTree_Recursion(NodeEx* root, NodeEx* parent, int depth, int& column)
 {
     int result = 0;
@@ -304,6 +308,7 @@ int UpdateTree_Recursion(NodeEx* root, NodeEx* parent, int depth, int& column)
     return result; // Size of Node
 }
 
+// Initialize & Update
 NodeEx* InitializeTreeEx_Iteration(Node* root)
 {
     NodeEx* rootEx = nullptr;
@@ -317,10 +322,10 @@ NodeEx* InitializeTreeEx_Iteration(Node* root)
         Node* node = root;
         Node* last = nullptr;
 
-        // isLeftNode, ParentNode
+        // IsLeftNode, ParentNode
         pair<bool, NodeEx*> parent(true, nullptr);
 
-        int depth = 0;
+        int depth = 0; // level = depth + 1
 
         while (!nodeExStack.empty() || node != nullptr)
         {
@@ -355,7 +360,7 @@ NodeEx* InitializeTreeEx_Iteration(Node* root)
 
                 node = node->left;
 
-                parent.first = true;
+                parent.first = true; // Left Node
                 parent.second = nodeEx;
             }
             else
@@ -363,11 +368,12 @@ NodeEx* InitializeTreeEx_Iteration(Node* root)
                 Node* top = nodeStack.top();
                 NodeEx* topEx = nodeExStack.top();
 
-                if (top->right != nullptr && last != top->right)
+                if (top->right != nullptr &&
+                    last != top->right)
                 {
                     node = top->right;
 
-                    parent.first = false;
+                    parent.first = false; // Right Node
                     parent.second = topEx;
                 }
                 else
@@ -390,15 +396,15 @@ NodeEx* InitializeTreeEx_Iteration(Node* root)
                         if (right != nullptr)
                         {
                             topEx->rightSize = right->size; // Right Size
-
                             right->parent = topEx; // Parent Node
+
                             rightHeight = right->perfectHeight; // Right Height
                         }
 
                         topEx->size = (topEx->leftSize + topEx->rightSize) + 1; // Size
                         topEx->perfectHeight = 1 + std::min(leftHeight, rightHeight); // Perfect Height
 
-                        depth--; // [Depth/Level]
+                        depth--;
                     }
 
                     last = top;
@@ -446,7 +452,7 @@ NodeEx* InitializeTreeEx_Iteration(Node* root)
     return rootEx;
 }
 
-// InitializeTree_Iteration()으로 대체할 수 있음
+// Only Update
 void UpdateTree_Iteration(NodeEx* root)
 {
     // [Postorder Traversal]
@@ -457,7 +463,7 @@ void UpdateTree_Iteration(NodeEx* root)
         NodeEx* node = root;
         NodeEx* last = nullptr;
 
-        int depth = 0;
+        int depth = 0; // level = depth + 1
 
         while (!stack.empty() || node != nullptr)
         {
@@ -504,15 +510,15 @@ void UpdateTree_Iteration(NodeEx* root)
                         if (right != nullptr)
                         {
                             top->rightSize = right->size; // Right Size
-
                             right->parent = top; // Parent Node
+
                             rightHeight = right->perfectHeight; // Right Height
                         }
 
                         top->size = (top->leftSize + top->rightSize) + 1; // Size
                         top->perfectHeight = 1 + std::min(leftHeight, rightHeight); // Perfect Height
 
-                        depth--; // [Depth/Level]
+                        depth--;
                     }
 
                     last = top;
@@ -812,7 +818,7 @@ NodeEx* FindLcaNode_Iteration(int size, pair<NodeEx*, NodeEx*> child)
     NodeEx* child2 = child.second;
 
     vector<bool> isVisited(size + 1, false);
-    // node->isVisited 또는 Map<int(node->data), bool(isVisited)>로 가능
+    // node->isVisited 또는 map<int(node->data), bool(isVisited)>로 가능
 
     while (child1 != nullptr)
     {

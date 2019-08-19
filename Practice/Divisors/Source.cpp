@@ -67,7 +67,7 @@ vector<int> Divisors(int n)
     int i = 1;
 
     // for (i = 1; i < std::sqrt(n); i++)
-    while (i * i < n)
+    while (i * i < n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
     {
         if (n % i == 0)
         {
@@ -104,7 +104,7 @@ int CountingDivisors(int n)
     int i = 1;
 
     // for (i = 1; i < std::sqrt(n); i++)
-    while (i * i < n)
+    while (i * i < n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
     {
         if (n % i == 0)
         {
@@ -141,7 +141,7 @@ vector<vector<int>> DivisorsList(int n)
     int i = 1;
 
     // for (i = 1; i <= std::sqrt(n); i++)
-    while (i * i <= n)
+    while (i * i <= n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
     {
         int j = i * i;
 

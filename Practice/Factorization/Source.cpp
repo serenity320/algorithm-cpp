@@ -50,7 +50,7 @@ vector<int> SmallestFactors(int n)
     int i = 2;
 
     // for (i = 2; i <= std::sqrt(n); i++)
-    while (i * i <= n)
+    while (i * i <= n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
     {
         if (result[i] == 0)
         {

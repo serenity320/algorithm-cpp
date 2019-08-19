@@ -11,6 +11,8 @@ struct Node
 
     Node* left;
     Node* right;
+
+    //bool isVisited;
 };
 
 Node* CreateNode(int data, Node* left, Node* right);
@@ -81,11 +83,17 @@ int main()
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
+    auto node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
-    node->data = data;
-    node->left = left;
-    node->right = right;
+    if (node != nullptr)
+    {
+        node->data = data;
+
+        node->left = left;
+        node->right = right;
+
+        //node->isVisited = false;
+    }
 
     return node;
 }
@@ -220,10 +228,11 @@ void PostorderTraversal_Stack(Node* root)
     }
 }
 
-// isVisited Flag를 이용한 방법
+// isVisited Flag를 이용한 방법 (가능)
 //void PostorderTraversal_Stack(Node* root)
 //{
 //    stack<Node*> stack;
+//
 //    stack.push(root);
 //
 //    while (!stack.empty())

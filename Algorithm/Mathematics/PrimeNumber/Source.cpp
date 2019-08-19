@@ -58,7 +58,7 @@ vector<int> PrimeNumber_SieveOfEratosthenes(int n)
     int i = 2;
 
     // for (i = 2; i <= std::sqrt(n); i++)
-    while (i * i <= n)
+    while (i * i <= n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
     {
         if (isPrime[i])
         {
@@ -97,7 +97,7 @@ bool IsPrimeNumber(int n)
         int i = 2;
 
         // for (i = 2; i <= std::sqrt(n); i++)
-        while (i * i <= n)
+        while (i * i <= n) // int ÃÖ´ñ°ª ÁÖÀÇ (i * i)
         {
             if (n % i == 0)
             {

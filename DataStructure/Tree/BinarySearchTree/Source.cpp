@@ -56,11 +56,15 @@ int main()
 
 Node* CreateNode(int data, Node* left, Node* right)
 {
-    Node* node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
+    auto node = reinterpret_cast<Node*>(malloc(sizeof(Node)));
 
-    node->data = data;
-    node->left = left;
-    node->right = right;
+    if (node != nullptr)
+    {
+        node->data = data;
+
+        node->left = left;
+        node->right = right;
+    }
 
     return node;
 }
