@@ -117,7 +117,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DecimalConverter", "Algorit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArrayPosition", "Example\ArrayPosition\ArrayPosition.vcxproj", "{B189E1EE-F083-4BAF-9E2F-AB0153E03C4D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BracketMaching", "Example\BracketMaching\BracketMaching.vcxproj", "{CE59A18B-8C0F-4B8C-B199-51FD5206B0FC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BracketMatching", "Example\BracketMatching\BracketMatching.vcxproj", "{CE59A18B-8C0F-4B8C-B199-51FD5206B0FC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Snail", "Example\Snail\Snail.vcxproj", "{14DEA2D1-4C3B-4A1F-83F1-F7545F2E106A}"
 EndProject
