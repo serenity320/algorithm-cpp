@@ -42,7 +42,7 @@ int main()
 
         auto result = data.insert(make_pair("ABC", 1));
         // result.first : key("ABC")의 iterator
-        // result.second : 중복 여부
+        // result.second : 중복 여부 (true : 중복 X)
 
         // erase(key)
         data.erase("DEF");
